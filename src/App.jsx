@@ -5,7 +5,6 @@ function App() {
   const [taches, setTaches] = useState([]);
 
   function ajouterTache() {
-    console.log("ajouterTache appelée, texte =", texte);
     if (texte.trim() === "") return;
     const nouvelle = { id: Date.now(), titre: texte };
     setTaches([...taches, nouvelle]);
@@ -23,8 +22,6 @@ function App() {
       />
       <button onClick={ajouterTache}>Ajouter</button>
 
-      <p>Texte actuel : {texte}</p>
-      <p>Contenu des tâches : {JSON.stringify(taches)}</p>
       <p>{taches.length} tâche(s)</p>
 
       <ul>
