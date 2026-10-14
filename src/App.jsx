@@ -11,30 +11,33 @@ function Bouton({ texte, action, couleur }) {
 function App() {
   const [compteur, setCompteur] = useState(0);
 
+  const boutons = [
+    { id: 1, texte: "Ajouter 1", valeur: 1, couleur: "lightgreen" },
+    { id: 2, texte: "Retirer 1", valeur: -1, couleur: "lightcoral" },
+    { id: 3, texte: "Ajouter 5", valeur: 5, couleur: "gold" },
+    { id: 4, texte: "Ajouter 10", valeur: 10, couleur: "green" },
+    { id: 3, texte: "Retirer 5", valeur: -5, couleur: "yellow" },
+  ];
+
   return (
     <div>
       <h1 style={{ color: compteur > 10 ? "red" : "black" }}>
         Compteur : {compteur}
       </h1>
-      <Bouton
-        texte="Ajouter 1"
-        action={() => setCompteur(compteur + 1)}
-        couleur="lightgreen"
-      />
-      <Bouton
-        texte="Retirer 1"
-        action={() => setCompteur(compteur - 1)}
-        couleur="lightcoral"
-      />
+
+      {boutons.map((b) => (
+        <Bouton
+          key={b.id}
+          texte={b.texte}
+          action={() => setCompteur(compteur + b.valeur)}
+          couleur={b.couleur}
+        />
+      ))}
+
       <Bouton
         texte="Remettre à zéro"
         action={() => setCompteur(0)}
         couleur="lightblue"
-      />
-      <Bouton
-        texte="Ajouter 5"
-        action={() => setCompteur(compteur + 5)}
-        couleur="gold"
       />
     </div>
   );
