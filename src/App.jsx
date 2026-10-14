@@ -11,6 +11,11 @@ function App() {
     setTexte("");
   }
 
+  function supprimerTache(id) {
+    const restantes = taches.filter((tache) => tache.id !== id);
+    setTaches(restantes);
+  }
+
   return (
     <div>
       <h1>Ma liste de tâches</h1>
@@ -28,10 +33,14 @@ function App() {
       <button onClick={ajouterTache}>Ajouter</button>
 
       <p>{taches.length} tâche(s)</p>
+      {taches.length === 0 && <p>Aucune tâche pour le moment, ajoute-en une !</p>}
 
       <ul>
-        {taches.map((t) => (
-          <li key={t.id}>{t.titre}</li>
+        {taches.map((tache) => (
+          <li key={tache.id}>
+            {tache.titre}{" "}
+            <button onClick={() => supprimerTache(tache.id)}>Supprimer</button>
+          </li>
         ))}
       </ul>
     </div>
