@@ -1,44 +1,37 @@
 import { useState } from "react";
 
-function Bouton({ texte, action, couleur }) {
-  return (
-    <button onClick={action} style={{ backgroundColor: couleur }}>
-      {texte}
-    </button>
-  );
-}
-
 function App() {
-  const [compteur, setCompteur] = useState(0);
+  const [texte, setTexte] = useState("");
+  const [taches, setTaches] = useState([]);
 
-  const boutons = [
-    { id: 1, texte: "Ajouter 1", valeur: 1, couleur: "lightgreen" },
-    { id: 2, texte: "Retirer 1", valeur: -1, couleur: "lightcoral" },
-    { id: 3, texte: "Ajouter 5", valeur: 5, couleur: "gold" },
-    { id: 4, texte: "Ajouter 10", valeur: 10, couleur: "green" },
-    { id: 3, texte: "Retirer 5", valeur: -5, couleur: "yellow" },
-  ];
+  function ajouterTache() {
+    console.log("ajouterTache appelée, texte =", texte);
+    if (texte.trim() === "") return;
+    const nouvelle = { id: Date.now(), titre: texte };
+    setTaches([...taches, nouvelle]);
+    setTexte("");
+  }
 
   return (
     <div>
-      <h1 style={{ color: compteur > 10 ? "red" : "black" }}>
-        Compteur : {compteur}
-      </h1>
+      <h1>Ma liste de tâches</h1>
 
-      {boutons.map((b) => (
-        <Bouton
-          key={b.id}
-          texte={b.texte}
-          action={() => setCompteur(compteur + b.valeur)}
-          couleur={b.couleur}
-        />
-      ))}
-
-      <Bouton
-        texte="Remettre à zéro"
-        action={() => setCompteur(0)}
-        couleur="lightblue"
+      <input
+        value={texte}
+        onChange={(e) => setTexte(e.target.value)}
+        placeholder="Nouvelle tâche"
       />
+      <button onClick={ajouterTache}>Ajouter</button>
+
+      <p>Texte actuel : {texte}</p>
+      <p>Contenu des tâches : {JSON.stringify(taches)}</p>
+      <p>{taches.length} tâche(s)</p>
+
+      <ul>
+        {taches.map((t) => (
+          <li key={t.id}>{t.titre}</li>
+        ))}
+      </ul>
     </div>
   );
 }
